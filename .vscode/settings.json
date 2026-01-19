@@ -1,0 +1,20 @@
+{   
+    // this is to provide :-
+    // - the ruler at 100 char mark in zig files.
+    // - the scroll lock, the screen moves so the cursor 
+    //   is always at the mid of the screen.
+    "[zig]": {
+        "editor.rulers": [100],
+        "editor.cursorSurroundingLines" : 999,
+        "editor.cursorSurroundingLinesStyle": "all",
+    },    
+    
+    // enable so switch between file editors without having to close prev editors
+    // makes it so only one is open at a time
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 1,
+    "workbench.editor.enablePreview": true,
+
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 500, // in milliseconds
+} 

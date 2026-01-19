@@ -1,0 +1,20 @@
+.{
+    .name = .bee_engine,
+    .version = "0.0.0",
+    .fingerprint = 0x3490f47f41fa2aed,
+    .minimum_zig_version = "0.15.2",
+    .dependencies = .{
+        // for a non blocking io and complete net implementation
+        // I plan to eliminate this dependency in future as zig has a promising
+        // future to incorperate them in the std library
+        .zio = .{
+            .url = "git+https://github.com/lalinsky/zio.git#af81f169ba90aec649ddfef86e19f1659b709f51",
+            .hash = "zio-0.4.0-xHbVVJ38EgCkuQc1iclKnvM4RHSeQxIgaFf4w6Jn0JwX",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

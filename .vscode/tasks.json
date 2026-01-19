@@ -1,0 +1,4 @@
+// file that deals with the things that need to be done
+// for compiling the project
+// we dont need this because zig comes with with build.zig 
+// where we define the build step and the run step as well

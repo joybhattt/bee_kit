@@ -1,0 +1,15 @@
+// this is not the actual keybinding.json file its the copy of it
+// you need to copy this to
+// vscodes local roaming keybindings.json file for it to work
+// get it by: 
+// - Ctrl + K + S  (this opens the keyboard shortcuts window) 
+// - click the leftmost icon on the top-right of the keyboard shortcuts window 
+
+[
+    // --- Paragraph Navigation ---
+    // requires : ParagraphJumper extension by brokenprogrammer
+    { "key": "ctrl+up", "command": "paragraphjump.up", "when": "textInputFocus" },
+    { "key": "ctrl+down", "command": "paragraphjump.down", "when": "textInputFocus" },
+    { "key": "ctrl+shift+up", "command": "paragraphjump.selectup", "when": "textInputFocus" },
+    { "key": "ctrl+shift+down", "command": "paragraphjump.selectdown", "when": "textInputFocus" }
+]

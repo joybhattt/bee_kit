@@ -1,3 +1,4 @@
 .zig-cache
 learn_res
 zig-out
+src/test.zig

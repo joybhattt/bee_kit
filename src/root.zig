@@ -1,18 +1,33 @@
-// external modules
+// -------------------------------------------------------------------------------------------------
+// External Modules
+// -------------------------------------------------------------------------------------------------
 const zio = @import("zio");
-
 /// `zio.net`
 pub const net = zio.net;
 /// `zio`
 pub const io = zio;
 
-
-// zig modules
+// -------------------------------------------------------------------------------------------------
+// Zig Modules
+// -------------------------------------------------------------------------------------------------
 /// `zig "std"`
 pub const std = @import("std");
 /// `zig "builtin"`
-pub const bltn = @import("builtin");
+pub const blt = @import("builtin");
 
-// internal modules
-/// configurations set at compile time
-pub const cfg = @import("config.zig");
+// -------------------------------------------------------------------------------------------------
+// Engine Modules
+// -------------------------------------------------------------------------------------------------
+pub const Network = @import("essentials/network/root.zig");
+
+pub const Physics = @import("essentials/physics/root.zig");
+
+pub const Utility = @import("essentials/utility/root.zig");
+
+pub const Graphics = @import("enviornment/graphics/root.zig");
+
+pub const Sound = @import("enviornment/sound/root.zig");
+
+pub const Window = @import("enviornment/sound/root.zig");
+
+pub const Configuration = @import("config.zig");

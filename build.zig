@@ -27,7 +27,7 @@ pub fn build(b: *std.Build) void {
 
     // --- Client Setup ---
     const main_module = b.createModule(.{
-        .root_source_file = b.path("src/main.zig"),
+        .root_source_file = b.path("src/test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -39,6 +39,7 @@ pub fn build(b: *std.Build) void {
     });
 
     root_module.addImport("zio", zio_dep.module("zio"));
+    root_module.addImport("deps", root_module);
     main_module.addImport("deps", root_module);
 
     const exe = b.addExecutable(.{

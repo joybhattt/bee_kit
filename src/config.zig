@@ -53,6 +53,3 @@ pub const is_mode_releasesmall: bool = (blt.mode == .ReleaseSmall);
 
 /// True if compiled in ReleaseSafe (optimized but retains safety checks).
 pub const is_mode_releasesafe: bool = (blt.mode == .ReleaseSafe);
-
-/// Internal flag to ensure 'Customize' is only called once during initialization.
-var is_customized = false;

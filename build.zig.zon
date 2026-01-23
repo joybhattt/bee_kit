@@ -1,7 +1,7 @@
 .{
     .name = .bee_kit,
     .version = "0.0.1",
-    .fingerprint = 0x3490f47f41fa2aed,
+    .fingerprint = 0xbc15ba98fa845e88,
     .minimum_zig_version = "0.15.2",
     .dependencies = .{},
     .paths = .{

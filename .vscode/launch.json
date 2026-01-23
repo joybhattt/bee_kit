@@ -1,4 +1,0 @@
-// the file to define what happens when u press f5 in vscode
-// for defining run command of the build
-// we dont need this because zig comes with with build.zig 
-// where we define the build step and the run step as well

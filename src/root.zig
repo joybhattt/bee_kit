@@ -12,5 +12,3 @@ pub const Graphics = @import("enviornment/graphics/root.zig");
 pub const Sound = @import("enviornment/sound/root.zig");
 
 pub const Window = @import("enviornment/sound/root.zig");
-
-pub const Configuration = @import("config.zig");

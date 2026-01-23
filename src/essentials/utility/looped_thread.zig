@@ -8,9 +8,8 @@
 // -------------------------------------------------------------------------------------------------
 // Imports
 // -------------------------------------------------------------------------------------------------
-const d = @import("deps");
-const std = d.std;
-const cfg = d.Configuration;
+const std = @import("std");
+const cfg = @import("root").Configuration;
 
 // -------------------------------------------------------------------------------------------------
 // Class Declation
@@ -128,6 +127,11 @@ pub const LoopThread = struct {
     pub fn loops(self: *LoopThread) bool {
         const stat = self._status.load(.monotonic);
 
+        if (self._terminate_now.load(.monotonic)) {
+            self._timer.reset();
+            self._status.store(.terminated, .release);   
+            return false;
+        }
 
         switch (stat) {
             .active, .not_initialized=> {

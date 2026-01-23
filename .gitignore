@@ -1,3 +1,4 @@
 src/test.zig
 .vscode
+zig-out
 .zig-cache

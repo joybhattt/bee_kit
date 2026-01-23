@@ -1,1 +1,1 @@
-pub const LoopThread = @import("looped_thread.zig").LoopThread;
+pub const LoopThread = @import("looped_thread.zig");

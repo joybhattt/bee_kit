@@ -9,7 +9,7 @@
 // Imports
 // -------------------------------------------------------------------------------------------------
 const std = @import("std");
-const cfg = @import("root").Configuration;
+const cfg = @import("bee_engine").Configuration;
 
 // -------------------------------------------------------------------------------------------------
 // Class Declation

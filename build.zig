@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    root_module.addImport("bee_engine", root_module);
 
     const lib = b.addLibrary(.{
         .name = "bee_engine",

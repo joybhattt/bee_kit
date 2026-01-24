@@ -43,10 +43,7 @@ pub fn build(b: *std.Build) void {
     });
     lib.root_module.addImport("zstbi", zstbi.module("root"));
 
-    const tatfi = b.dependency("tatfi", .{
-        .optimize = optimize,
-        .target = target,
-    });
+    const tatfi = b.dependency("tatfi", .{});
     lib.root_module.addImport("tatfi", tatfi.module("tatfi"));
 
     b.installArtifact(lib);

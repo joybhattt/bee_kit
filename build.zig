@@ -9,11 +9,27 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-
     const lib = b.addLibrary(.{
         .name = "bee_kit",
         .root_module = root_module,
         .linkage = .static,
     });
+
+    @import("zgpu").addLibraryPathsTo(lib);
+    const zgpu = b.dependency("zgpu", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    lib.root_module.addImport("zgpu", zgpu.module("root"));
+    lib.root_module.linkLibrary(zgpu.artifact("zdawn"));
+
+
+    const zglfw = b.dependency("zglfw", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    lib.root_module.addImport("zglfw", zglfw.module("root"));
+    lib.root_module.linkLibrary(zglfw.artifact("glfw"));
+
     b.installArtifact(lib);
 }

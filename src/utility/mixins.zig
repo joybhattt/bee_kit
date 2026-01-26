@@ -14,7 +14,7 @@ inline fn GetFieldType(comptime T: type, comptime name: []const u8) type {
     @compileError("Field '" ++ name ++ "' not found.");
 }
 
-pub inline fn recGet(self: anytype, comptime field_name: []const u8) GetFieldType(@TypeOf(self), field_name) {
+pub inline fn get(self: anytype, comptime field_name: []const u8) GetFieldType(@TypeOf(self), field_name) {
     const T = @TypeOf(self);
     const PtrT = @typeInfo(T).pointer.child;
 
@@ -23,13 +23,13 @@ pub inline fn recGet(self: anytype, comptime field_name: []const u8) GetFieldTyp
     }
 
     if (@hasField(PtrT, "base")) {
-        return recGet(self.base, field_name);
+        return get(self.base, field_name);
     }
 
     unreachable;
 }
 
-pub inline fn recGetPtr(self: anytype, comptime field_name: []const u8) *GetFieldType(@TypeOf(self), field_name) {
+pub inline fn getPtr(self: anytype, comptime field_name: []const u8) *GetFieldType(@TypeOf(self), field_name) {
     const T = @TypeOf(self);
     const PtrT = @typeInfo(T).pointer.child;
 
@@ -38,34 +38,13 @@ pub inline fn recGetPtr(self: anytype, comptime field_name: []const u8) *GetFiel
     }
 
     if (@hasField(PtrT, "base")) {
-        return recGetPtr(&self.base, field_name);
+        return getPtr(&self.base, field_name);
     }
 
     unreachable;
 }
 
-pub inline fn get(self: anytype, comptime field_name: []const u8) GetFieldType(@TypeOf(self), field_name) {
-    return @field(self, field_name);
-}
-
-pub inline fn getPtr(self: anytype, comptime field_name: []const u8) *GetFieldType(@TypeOf(self), field_name) {
-    return &@field(self, field_name);
-}
-
 pub inline fn set(self: anytype, comptime field_name: []const u8, value: anytype) void {
-    @field(self, field_name) = value;
-}
-
-pub inline fn call(
-    self: anytype, 
-    comptime method_name: []const u8, 
-    args: anytype
-) GetMethodReturnType(@TypeOf(self), method_name) {
-    const func = @field(@TypeOf(self), method_name);
-    return @call(.auto, func, .{self} ++ args);
-}
-
-pub inline fn recSet(self: anytype, comptime field_name: []const u8, value: anytype) void {
     const T = @TypeOf(self);
     const PtrT = @typeInfo(T).pointer.child;
 
@@ -75,7 +54,7 @@ pub inline fn recSet(self: anytype, comptime field_name: []const u8, value: anyt
     }
 
     if (@hasField(PtrT, "base_class")) {
-        return recSet(&self.base, field_name, value);
+        return set(&self.base, field_name, value);
     }
 
     @compileError("Field '" ++ field_name ++ "' not found in hierarchy.");
@@ -100,7 +79,7 @@ inline fn GetMethodReturnType(comptime T: type, comptime name: []const u8) type 
     @compileError("Method '" ++ name ++ "' not found.");
 }
 
-pub inline fn recCall(
+pub inline fn call(
     self: anytype, 
     comptime method_name: []const u8, 
     args: anytype
@@ -115,7 +94,7 @@ pub inline fn recCall(
 
     if (@hasField(PtrT, "base")) {
         // Recurse into base. Use & if base is a struct, or just self.base if it's already a ptr
-        return recCall(&self.base, method_name, args);
+        return call(&self.base, method_name, args);
     }
 
     unreachable;

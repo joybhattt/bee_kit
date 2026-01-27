@@ -16,12 +16,12 @@ pub fn build(b: *std.Build) void {
         .linkage = .static,
     });
 
-    @import("zgpu").addLibraryPathsTo(lib);
     const zgpu = b.dependency("zgpu", .{
         .target = target,
         .optimize = optimize,
     });
     lib.root_module.addImport("zgpu", zgpu.module("root"));
+    @import("zgpu").addLibraryPathsTo(lib);
     lib.linkLibrary(zgpu.artifact("zdawn"));
 
     if (target.result.os.tag == .windows) {

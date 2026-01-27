@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+
     const lib = b.addLibrary(.{
         .name = "bee_kit",
         .root_module = root_module,
@@ -23,6 +24,17 @@ pub fn build(b: *std.Build) void {
     lib.root_module.addImport("zgpu", zgpu.module("root"));
     lib.linkLibrary(zgpu.artifact("zdawn"));
 
+    if (target.result.os.tag == .windows) {
+        lib.linkSystemLibrary("gdi32");
+        lib.linkSystemLibrary("setupapi");
+        lib.linkSystemLibrary("user32");
+        lib.linkSystemLibrary("shell32");
+        lib.linkSystemLibrary("ole32");
+        lib.linkSystemLibrary("advapi32");
+        lib.linkSystemLibrary("d3d12");
+        lib.linkSystemLibrary("dxgi");
+        lib.linkSystemLibrary("d3dcompiler_47");
+    }
     const zglfw = b.dependency("zglfw", .{
         .target = target,
         .optimize = optimize,

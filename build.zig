@@ -4,7 +4,7 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const root_module = b.addModule("bee_kit",.{
+    const root_module = b.addModule("bee_kit", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
@@ -21,10 +21,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     lib.root_module.addImport("zgpu", zgpu.module("root"));
-    if (target.result.os.tag != .emscripten) {
-        lib.linkLibrary(zgpu.artifact("zdawn"));
-    }
-
+    lib.linkLibrary(zgpu.artifact("zdawn"));
 
     const zglfw = b.dependency("zglfw", .{
         .target = target,

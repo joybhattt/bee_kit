@@ -11,36 +11,22 @@ pub fn build(b: *std.Build) void {
     });
 
     const lib = b.addLibrary(.{
-        .name = "bee_kit",
+        .name = "bee_set",
         .root_module = root_module,
         .linkage = .static,
     });
 
-    const zgpu = b.dependency("zgpu", .{
+    const zio = b.dependency("zio",.{
         .target = target,
         .optimize = optimize,
     });
-    lib.root_module.addImport("zgpu", zgpu.module("root"));
-    @import("zgpu").addLibraryPathsTo(lib);
-    lib.linkLibrary(zgpu.artifact("zdawn"));
+    lib.root_module.addImport("zio", zio.module("zio"));
 
-    if (target.result.os.tag == .windows) {
-        lib.linkSystemLibrary("gdi32");
-        lib.linkSystemLibrary("setupapi");
-        lib.linkSystemLibrary("user32");
-        lib.linkSystemLibrary("shell32");
-        lib.linkSystemLibrary("ole32");
-        lib.linkSystemLibrary("advapi32");
-        lib.linkSystemLibrary("d3d12");
-        lib.linkSystemLibrary("dxgi");
-        lib.linkSystemLibrary("d3dcompiler_47");
-    }
-    const zglfw = b.dependency("zglfw", .{
+    const sokol = b.dependency("sokol", .{
         .target = target,
         .optimize = optimize,
     });
-    lib.root_module.addImport("zglfw", zglfw.module("root"));
-    lib.root_module.linkLibrary(zglfw.artifact("glfw"));
+    lib.root_module.addImport("sokol", sokol.module("sokol"));
 
     const zmath = b.dependency("zmath", .{
         .target = target,

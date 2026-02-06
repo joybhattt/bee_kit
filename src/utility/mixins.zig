@@ -4,14 +4,7 @@ inline fn GetFieldType(comptime T: type, comptime name: []const u8) type {
     if (@hasField(PtrT, name)) {
         return @TypeOf(@field(@as(PtrT, undefined), name));
     }
-
-    // Match your struct's field name: "base"
-    if (@hasField(PtrT, "base")) {
-        const BaseType = @TypeOf(@field(@as(PtrT, undefined), "base"));
-        return GetFieldType(BaseType, name);
-    }
-
-    @compileError("Field '" ++ name ++ "' not found.");
+    @compileError("Field '" ++ name ++ "' not found in class" ++ @typeName(T));
 }
 
 pub inline fn get(self: anytype, comptime field_name: []const u8) GetFieldType(@TypeOf(self), field_name) {
@@ -20,10 +13,6 @@ pub inline fn get(self: anytype, comptime field_name: []const u8) GetFieldType(@
 
     if (@hasField(PtrT, field_name)) {
         return @field(self, field_name);
-    }
-
-    if (@hasField(PtrT, "base")) {
-        return get(self.base, field_name);
     }
 
     unreachable;
@@ -35,10 +24,6 @@ pub inline fn getPtr(self: anytype, comptime field_name: []const u8) *GetFieldTy
 
     if (@hasField(PtrT, field_name)) {
         return &@field(self, field_name);
-    }
-
-    if (@hasField(PtrT, "base")) {
-        return getPtr(&self.base, field_name);
     }
 
     unreachable;
@@ -53,11 +38,7 @@ pub inline fn set(self: anytype, comptime field_name: []const u8, value: anytype
         return;
     }
 
-    if (@hasField(PtrT, "base_class")) {
-        return set(&self.base, field_name, value);
-    }
-
-    @compileError("Field '" ++ field_name ++ "' not found in hierarchy.");
+    @compileError("Field '" ++ field_name ++ "' not found in class" ++ @typeName(T));
 }
 
 inline fn GetMethodReturnType(comptime T: type, comptime name: []const u8) type {
@@ -71,12 +52,7 @@ inline fn GetMethodReturnType(comptime T: type, comptime name: []const u8) type 
         return FnInfo.return_type.?;
     }
 
-    if (@hasField(PtrT, "base")) {
-        const BaseType = @TypeOf(@field(@as(PtrT, undefined), "base"));
-        return GetMethodReturnType(BaseType, name);
-    }
-
-    @compileError("Method '" ++ name ++ "' not found.");
+    @compileError("Method '" ++ name ++ "' not found in class " ++ @typeName(T));
 }
 
 pub inline fn call(
@@ -90,11 +66,6 @@ pub inline fn call(
     if (@hasDecl(PtrT, method_name)) {
         const func = @field(PtrT, method_name);
         return @call(.auto, func, .{self} ++ args);
-    }
-
-    if (@hasField(PtrT, "base")) {
-        // Recurse into base. Use & if base is a struct, or just self.base if it's already a ptr
-        return call(&self.base, method_name, args);
     }
 
     unreachable;

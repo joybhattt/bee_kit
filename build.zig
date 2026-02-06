@@ -16,12 +16,6 @@ pub fn build(b: *std.Build) void {
         .linkage = .static,
     });
 
-    const zio = b.dependency("zio",.{
-        .target = target,
-        .optimize = optimize,
-    });
-    lib.root_module.addImport("zio", zio.module("zio"));
-
     const sokol = b.dependency("sokol", .{
         .target = target,
         .optimize = optimize,

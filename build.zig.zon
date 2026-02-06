@@ -20,10 +20,6 @@
             .url = "git+https://github.com/floooh/sokol-zig.git#053bc64aa929cf961e2c167f7ea3f653a2e7be20",
             .hash = "sokol-0.1.0-pb1HKw6iNgBy614NPt9ATK4sdmw04nQL9V1Rt9zwQrGV",
         },
-        .zio = .{
-            .url = "git+https://github.com/lalinsky/zio.git#ee8aebe20ab5f917284a2cd648356b6076cdc3e2",
-            .hash = "zio-0.6.0-xHbVVKDvFgD-QdmTVTh3RMmvaxyDiO21FbP5njC_VpK7",
-        },
     },
     .paths = .{
         "build.zig",
